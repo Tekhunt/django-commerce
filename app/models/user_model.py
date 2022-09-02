@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -6,8 +7,8 @@ from .user_manager import CustomUserManager
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    # is_staff = models.BooleanField(default=False)
-    # is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_vendor = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
 
@@ -21,17 +22,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Customer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, null=True)
     shipping_address = models.CharField(max_length=255)
-    shipping_address = models.CharField(max_length=255)
+    billing_address = models.CharField(max_length=255, null=True)
     credit_card = models.CharField(max_length=100, null=True)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=20, null=True)
+
+
 
     def __str__(self):
-        return self.email
+        return self.name
 
 class Vendor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.email
+        return self.title

@@ -16,8 +16,11 @@ class Product(models.Model):
     description = models.TextField()
     currency = models.CharField(max_length=5, choices=currencies, default="$")
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    sku = models.IntegerField()
+    sku = models.CharField(max_length=10)
     image = models.URLField()
-    inventory = models.FloatField()
+    inventory = models.IntegerField()
     state = models.CharField(max_length=12, choices=status, default="active")
-    delivery_time = models.CharField(max_length=50)
+    shipment_delivery_time = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
