@@ -7,6 +7,7 @@ from .user_manager import CustomUserManager
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_vendor = models.BooleanField(default=False)
@@ -18,11 +19,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.name
 
 class Customer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, null=True)
+    username = models.CharField(max_length=50, null=True)
     shipping_address = models.CharField(max_length=255)
     billing_address = models.CharField(max_length=255, null=True)
     credit_card = models.CharField(max_length=100, null=True)
@@ -30,12 +31,12 @@ class Customer(models.Model):
 
 
 
-    def __str__(self):
-        return self.name
+    def __repr__(self):
+        return self.username
 
 class Vendor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
+    company = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.title
+        return self.company
