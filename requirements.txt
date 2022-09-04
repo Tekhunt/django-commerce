@@ -2,6 +2,7 @@ asgiref==3.5.2
 attrs==22.1.0
 Django==4.1
 django-baton==2.4.1
+django-dotenv==1.4.2
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.2.0
 drf-spectacular==0.23.1
