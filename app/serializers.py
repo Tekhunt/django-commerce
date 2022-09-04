@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from app.models.cart_model import Cart
 from app.models.user_model import CustomUser, Customer, Vendor
 from app.models.product_model import Product
 
@@ -38,4 +39,9 @@ class VendorSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
+        fields = "__all__"
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
         fields = "__all__"

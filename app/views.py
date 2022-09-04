@@ -10,9 +10,12 @@ from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 from django.contrib.auth import authenticate
+from wand.image import Image
+from app.models.cart_model import Cart
 from app.models.user_model import CustomUser, Vendor
 from app.models.product_model import Product
 from .serializers import (
+    CartSerializer,
     ProductSerializer,
     UserSerializer,
     UserDataSerializer,
@@ -135,6 +138,14 @@ class ProductsDetail(generics.RetrieveDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+class CartList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated, )
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
+class CartDetail(generics.RetrieveDestroyAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
 
 
 

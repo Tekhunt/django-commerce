@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  django:
+    build:
+      context: .
+    container_name: django
+    image: django
+    ports:
+    - 8000:8000

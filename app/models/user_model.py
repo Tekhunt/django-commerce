@@ -19,11 +19,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.name
+        return self.name or ""
 
 class Customer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    username = models.CharField(max_length=50, null=True)
+    # username = models.CharField(max_length=50, null=True)
     shipping_address = models.CharField(max_length=255)
     billing_address = models.CharField(max_length=255, null=True)
     credit_card = models.CharField(max_length=100, null=True)
@@ -31,12 +31,12 @@ class Customer(models.Model):
 
 
 
-    def __repr__(self):
-        return self.username
+    def __str__(self):
+        return self.shipping_address[:5] or ""
 
 class Vendor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    company = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.company
+        return self.brand or ""
