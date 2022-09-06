@@ -4,8 +4,6 @@ from app.models.user_model import CustomUser, Customer, Vendor
 from app.models.product_model import Product
 
 
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -25,10 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+
 class UserDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = "__all__"
+
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,6 +40,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
+
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:

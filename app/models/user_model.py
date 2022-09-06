@@ -13,13 +13,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_vendor = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
     def __str__(self):
         return self.name or ""
+
 
 class Customer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -29,10 +30,9 @@ class Customer(models.Model):
     credit_card = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=20, null=True)
 
-
-
     def __str__(self):
         return self.shipping_address[:5] or ""
+
 
 class Vendor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

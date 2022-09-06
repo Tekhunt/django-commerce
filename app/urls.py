@@ -1,11 +1,25 @@
 from django.urls import path
 from . import views
-from .views import CartDetail, CartList, LoginView, LogoutView, ProductsDetail, ProductsList, RegisterApi, User, UserView, UsersData, HomeView, VendorDetail, VendorList
+from .views import (
+    CartDetail,
+    CartList,
+    LoginView,
+    LogoutView,
+    ProductsDetail,
+    ProductsList,
+    RegisterApi,
+    User,
+    UserView,
+    UsersData,
+    HomeView,
+    VendorDetail,
+    VendorList,
+)
 
 
 urlpatterns = [
-    path('', views.HomeView.as_view(), name ='home'),
-    path('api/register/', RegisterApi.as_view()),
+    path("", views.HomeView.as_view(), name="home"),
+    path("api/register/", RegisterApi.as_view(), name="register"),
     path("api/login/", LoginView.as_view(), name="login"),
     path("api/userview/", UserView.as_view(), name="userview"),
     path("api/logout/", LogoutView.as_view(), name="logout"),

@@ -1,15 +1,12 @@
 from django.db import models
-
+from wand.image import Image
 from .user_model import Vendor
 
 
 class Product(models.Model):
-    status = [
-    ("active", "active"),
-    ("inactive", "inactive")
-    ]
+    status = [("active", "active"), ("inactive", "inactive")]
     currencies = [
-    ('$', "US Dollars ($)"),
+        ("$", "US Dollars ($)"),
     ]
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
@@ -21,6 +18,13 @@ class Product(models.Model):
     inventory = models.IntegerField()
     state = models.CharField(max_length=12, choices=status, default="active")
     shipment_delivery_time = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        print(self.image)
+        self.image = Image(filename=f"{self.image}")
+        self.image.resize(75, 50)
+        print(self.image)
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name or ""

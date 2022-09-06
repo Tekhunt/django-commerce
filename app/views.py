@@ -19,8 +19,9 @@ from .serializers import (
     ProductSerializer,
     UserSerializer,
     UserDataSerializer,
-    VendorSerializer
+    VendorSerializer,
 )
+
 # from dotenv import load_dotenv
 
 # load_dotenv()
@@ -28,74 +29,64 @@ from .serializers import (
 
 class HomeView(APIView):
     def get(self, request):
-        content = {'message': 'Welcome to where awesomeness is cooked!'}
+        content = {"message": "Welcome to where awesomeness is cooked!"}
         return Response(content)
+
 
 class RegisterApi(generics.GenericAPIView):
     serializer_class = UserSerializer
-    def post(self, request, *args,  **kwargs):
+
+    def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
-            return Response(UserSerializer(user, context=self.get_serializer_context()).data)
+            return Response(
+                UserSerializer(user, context=self.get_serializer_context()).data
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-# class LoginView(APIView):
-#     permission_classes = ()
-
-#     def post(self, request,):
-#         email = request.data.get("email")
-#         password = request.data.get("password")
-#         user = authenticate(username=email, password=password)
-#         if user:
-#             return Response({"token": user.auth_token.key})
-#         else:
-#             return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)
 class LoginView(APIView):
     def post(self, request):
-        email = request.data['email']
-        password = request.data['password']
+        email = request.data["email"]
+        password = request.data["password"]
 
         user = CustomUser.objects.filter(email=email).first()
 
         if user is None:
-            raise AuthenticationFailed('User not found!')
+            raise AuthenticationFailed("User not found!")
 
         if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
+            raise AuthenticationFailed("Incorrect password!")
 
         payload = {
-            'id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
+            "id": user.id,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            "iat": datetime.datetime.utcnow(),
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, "secret", algorithm="HS256")
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, httponly=True)
-        response.data = {
-            'jwt': token
-        }
+        response.set_cookie(key="jwt", value=token, httponly=True)
+        response.data = {"jwt": token}
         return response
 
-class UserView(APIView):
 
+class UserView(APIView):
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        token = request.COOKIES.get("jwt")
 
         if not token:
-            raise AuthenticationFailed('Unauthenticated!')
+            raise AuthenticationFailed("Unauthenticated!")
 
         try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+            payload = jwt.decode(token, "secret", algorithms=["HS256"])
         except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
+            raise AuthenticationFailed("Unauthenticated!")
 
-        user = CustomUser.objects.filter(id=payload['id']).first()
+        user = CustomUser.objects.filter(id=payload["id"]).first()
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
@@ -103,11 +94,10 @@ class UserView(APIView):
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
-        response.delete_cookie('jwt')
-        response.data = {
-            'message': 'success'
-        }
+        response.delete_cookie("jwt")
+        response.data = {"message": "success"}
         return response
+
 
 class UsersData(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated, )
@@ -115,13 +105,16 @@ class UsersData(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserDataSerializer
 
+
 class User(generics.RetrieveDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserDataSerializer
 
+
 class VendorList(generics.ListCreateAPIView):
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
+
 
 class VendorDetail(generics.RetrieveDestroyAPIView):
     queryset = Vendor.objects.all()
@@ -134,19 +127,18 @@ class ProductsList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+
 class ProductsDetail(generics.RetrieveDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
 
 class CartList(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated, )
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
+
 class CartDetail(generics.RetrieveDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-
-
-
-

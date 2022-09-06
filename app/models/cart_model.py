@@ -11,4 +11,4 @@ class Cart(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user} cart' or ""
+        return f"{self.user} cart" or ""
