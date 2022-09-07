@@ -8,6 +8,15 @@ import sys
 from .user_model import Vendor
 
 
+
+# def upload_path(instance,title):
+#     vendor = instance.vendor
+#     product = instance.name
+#     if Vendor.id == vendor:
+#         new = Vendor.brand
+#     return f'public/{new}/{prod}.jpg'
+
+
 class Product(models.Model):
     status = [("active", "active"), ("inactive", "inactive")]
     currencies = [
@@ -25,7 +34,7 @@ class Product(models.Model):
     currency = models.CharField(max_length=5, choices=currencies, default="$")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sku = models.CharField(max_length=10)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='static/images')
     inventory = models.IntegerField()
     status = models.CharField(max_length=12, choices=status, default="active")
     shipment_delivery_time = models.CharField(

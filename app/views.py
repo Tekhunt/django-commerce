@@ -11,10 +11,12 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 from django.contrib.auth import authenticate
 from wand.image import Image
+import pandas as pd
 from app.models.cart_model import Cart
 from app.models.user_model import CustomUser, Vendor
 from app.models.product_model import Product
 from .serializers import (
+    # BulkInstanceSerializer,
     CartSerializer,
     ProductSerializer,
     UserSerializer,
@@ -119,6 +121,13 @@ class VendorList(generics.ListCreateAPIView):
 class VendorDetail(generics.RetrieveDestroyAPIView):
     queryset = Vendor.objects.all()
     serializer_class = VendorSerializer
+
+
+
+# class BulkApiView(generics.ListCreateAPIView):
+
+#     queryset = Product.objects.all()
+#     serializer_class = BulkInstanceSerializer
 
 
 class ProductsList(generics.ListCreateAPIView):

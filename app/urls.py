@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import (
+    # BulkApiView,
     CartDetail,
     CartList,
     LoginView,
@@ -29,6 +30,7 @@ urlpatterns = [
     path("api/vendors/<int:pk>/", VendorDetail.as_view(), name="vendors_detail"),
     path("api/products/", ProductsList.as_view(), name="products_list"),
     path("api/products/<int:pk>/", ProductsDetail.as_view(), name="products_detail"),
+    # path("api/bulk-upload/", BulkApiView.as_view(), name="bulk_list"),
     path("api/cart/", CartList.as_view(), name="cart_list"),
     path("api/cart/<int:pk>/", CartDetail.as_view(), name="cart_detail"),
 ]

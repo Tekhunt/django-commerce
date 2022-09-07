@@ -1,4 +1,6 @@
+from dataclasses import field
 from rest_framework import serializers
+import pandas as pd
 from app.models.cart_model import Cart
 from app.models.user_model import CustomUser, Customer, Vendor
 from app.models.product_model import Product
@@ -46,3 +48,26 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = "__all__"
+
+
+# class BulkInstanceSerializer(serializers.ModelSerializer):
+
+#     def create(self, validated_data):
+
+#         df = pd.read_csv('/', sep='delimiter')
+#         products = []
+#         for i in range(len(df)):
+#             products.append(
+#                 Product(
+#                 name=df.iloc[i][0],
+#                 description=df.iloc[i][1],
+#                 price=df.iloc[i][2]
+#                 )
+#             )
+#         instance = Product.objects.bulk_create(products)
+#         instance.save
+#         return instance
+
+#     class Meta:
+#         model = Product
+#         fields = '__all__'

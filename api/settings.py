@@ -154,6 +154,7 @@ else:
     STATIC_URL = 'static/'
 
 
+
 # Static files (CSS, JavaScript, Images)
 #
 
