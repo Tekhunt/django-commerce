@@ -6,8 +6,8 @@ from app.models.user_model import CustomUser, Customer, Vendor
 
 
 # Register your models here.
-admin.site.register(CustomUser)
-admin.site.register(Customer)
-admin.site.register(Vendor)
+# admin.site.register(CustomUser)
+# admin.site.register(Customer)
+# admin.site.register(Vendor)
 admin.site.register(Product)
-admin.site.register(Cart)
+# admin.site.register(Cart)
