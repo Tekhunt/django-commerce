@@ -13,12 +13,16 @@ from django.contrib.auth import authenticate
 from wand.image import Image
 import pandas as pd
 from app.models.cart_model import Cart
+from app.models.rating_model import Rating
+from app.models.review_model import Review
 from app.models.user_model import CustomUser, Vendor
 from app.models.product_model import Product
 from .serializers import (
     # BulkInstanceSerializer,
     CartSerializer,
     ProductSerializer,
+    RatingSerializer,
+    ReviewSerializer,
     UserSerializer,
     UserDataSerializer,
     VendorSerializer,
@@ -63,7 +67,7 @@ class LoginView(APIView):
 
         payload = {
             "id": user.id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=10),
             "iat": datetime.datetime.utcnow(),
         }
 
@@ -123,13 +127,6 @@ class VendorDetail(generics.RetrieveDestroyAPIView):
     serializer_class = VendorSerializer
 
 
-
-# class BulkApiView(generics.ListCreateAPIView):
-
-#     queryset = Product.objects.all()
-#     serializer_class = BulkInstanceSerializer
-
-
 class ProductsList(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated, )
 
@@ -151,3 +148,28 @@ class CartList(generics.ListCreateAPIView):
 class CartDetail(generics.RetrieveDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+
+
+class ReviewList(generics.ListCreateAPIView):
+# permission_classes = (IsAuthenticated, )
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+
+class ReviewDetail(generics.RetrieveDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class =ReviewSerializer
+
+
+
+class RatingList(generics.ListCreateAPIView):
+# permission_classes = (IsAuthenticated, )
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+
+
+class RatingDetail(generics.RetrieveDestroyAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer

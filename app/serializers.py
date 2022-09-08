@@ -1,7 +1,9 @@
 from dataclasses import field
 from rest_framework import serializers
-import pandas as pd
+# import pandas as pd
 from app.models.cart_model import Cart
+from app.models.rating_model import Rating
+from app.models.review_model import Review
 from app.models.user_model import CustomUser, Customer, Vendor
 from app.models.product_model import Product
 
@@ -47,6 +49,16 @@ class ProductSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
+        fields = "__all__"
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
         fields = "__all__"
 
 
