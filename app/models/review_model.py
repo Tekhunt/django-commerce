@@ -9,8 +9,8 @@ class Review(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     comment = models.TextField(max_length=1000)
     rate = models.FloatField(
-            validators=[MinValueValidator(0.0), MaxValueValidator(5.0)]
-        )
+        validators=[MinValueValidator(0.0), MaxValueValidator(5.0)]
+    )
 
     def __str__(self):
         return self.product.name

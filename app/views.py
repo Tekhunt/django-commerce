@@ -158,6 +158,7 @@ class ReviewDetail(generics.RetrieveDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
+
 class ProductImageList(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated, )
     queryset = ProductImage.objects.all()
@@ -167,6 +168,3 @@ class ProductImageList(generics.ListCreateAPIView):
 class ProductImageDetail(generics.RetrieveDestroyAPIView):
     queryset = ProductImage.objects.all()
     serializer_class = ReviewSerializer
-
-
-

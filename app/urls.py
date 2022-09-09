@@ -38,5 +38,9 @@ urlpatterns = [
     path("api/review/", ReviewList.as_view(), name="review_list"),
     path("api/review/<int:pk>/", ReviewDetail.as_view(), name="review_detail"),
     path("api/product-image/", ProductImageList.as_view(), name="product_image_list"),
-    path("api/product-image/<int:pk>/", ProductImageDetail.as_view(), name="product_image_detail"),
+    path(
+        "api/product-image/<int:pk>/",
+        ProductImageDetail.as_view(),
+        name="product_image_detail",
+    ),
 ]

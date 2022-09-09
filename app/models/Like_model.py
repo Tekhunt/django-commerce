@@ -2,6 +2,8 @@ from django.db import models
 
 from app.models.product_model import Product
 from app.models.user_model import Customer
+
+
 class Like(models.Model):
     """like  comment"""
 
