@@ -7,9 +7,13 @@ from django.urls import resolve
 from app.views import (
     CartDetail,
     CartList,
+    ProductImageDetail,
+    ProductImageList,
     ProductsDetail,
     ProductsList,
     RegisterApi,
+    ReviewDetail,
+    ReviewList,
     User,
     UserView,
     UsersData,
@@ -58,3 +62,19 @@ class TestSamples(TestCase):
     def test_cart_detail_url_is_resolved(self):
         url = reverse("cart_detail", args=[1])
         self.assertEquals(resolve(url).func.view_class, CartDetail)
+
+    def test_review_url_is_resolved(self):
+        url = reverse("review_list")
+        self.assertEquals(resolve(url).func.view_class, ReviewList)
+
+    def test_review_detail_url_is_resolved(self):
+        url = reverse("review_detail", args=[1])
+        self.assertEquals(resolve(url).func.view_class, ReviewDetail)
+
+    def test_product_image_url_is_resolved(self):
+        url = reverse("product_image_list")
+        self.assertEquals(resolve(url).func.view_class, ProductImageList)
+
+    def test_product_image_detail_url_is_resolved(self):
+        url = reverse("product_image_detail", args=[1])
+        self.assertEquals(resolve(url).func.view_class, ProductImageDetail)

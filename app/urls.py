@@ -1,15 +1,14 @@
 from django.urls import path
 from . import views
 from .views import (
-    # BulkApiView,
     CartDetail,
     CartList,
     LoginView,
     LogoutView,
+    ProductImageDetail,
+    ProductImageList,
     ProductsDetail,
     ProductsList,
-    RatingDetail,
-    RatingList,
     RegisterApi,
     ReviewDetail,
     ReviewList,
@@ -38,6 +37,6 @@ urlpatterns = [
     path("api/cart/<int:pk>/", CartDetail.as_view(), name="cart_detail"),
     path("api/review/", ReviewList.as_view(), name="review_list"),
     path("api/review/<int:pk>/", ReviewDetail.as_view(), name="review_detail"),
-    path("api/rating/", RatingList.as_view(), name="rating_list"),
-    path("api/rating/<int:pk>/", RatingDetail.as_view(), name="rating_detail"),
+    path("api/product-image/", ProductImageList.as_view(), name="product_image_list"),
+    path("api/product-image/<int:pk>/", ProductImageDetail.as_view(), name="product_image_detail"),
 ]

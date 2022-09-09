@@ -8,7 +8,6 @@ import sys
 from .user_model import Vendor
 
 
-
 # def upload_path(instance,title):
 #     vendor = instance.vendor
 #     product = instance.name
@@ -27,15 +26,10 @@ class Product(models.Model):
         ("Blue", "Blue"),
         ("Green", "Green"),
         ("Purple", "Purple"),
-        ("graphite", "graphite")
+        ("graphite", "graphite"),
     ]
 
-    SIZES = [
-    ("S", "Small"),
-    ("M", "Medium"),
-    ("L", "Large"),
-    ("XL", "Extra-large")
-    ]
+    SIZES = [("S", "Small"), ("M", "Medium"), ("L", "Large"), ("XL", "Extra-large")]
 
     DELEVERY_TIME = [
         ("1-3 Business Days", "1-3 days"),
@@ -49,7 +43,7 @@ class Product(models.Model):
     currency = models.CharField(max_length=5, choices=CURRENCIES, default="$")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sku = models.CharField(max_length=10)
-    image = models.ImageField(upload_to='static/images')
+    image = models.URLField()
     color = models.CharField(max_length=20, choices=COLORS)
     size = models.CharField(max_length=20, choices=SIZES)
     inventory = models.IntegerField()
@@ -59,24 +53,24 @@ class Product(models.Model):
     )
 
     # def save(self):
-        # img = Image.open(self.image)
+    # img = Image.open(self.image)
 
-        # output = BytesIO()
+    # output = BytesIO()
 
-        # img = img.resize((200, 200))
+    # img = img.resize((200, 200))
 
-        # img.save(output, format="JPEG", quality=100)
-        # output.seek(0)
+    # img.save(output, format="JPEG", quality=100)
+    # output.seek(0)
 
-        # # change the imagefield value to be the newley modifed image value
-        # self.image = InMemoryUploadedFile(
-        #     output,
-        #     "ImageField",
-        #     "%s.jpg" % self.image.name.split(".")[0],
-        #     "image/jpeg",
-        #     sys.getsizeof(output),
-        #     None,
-        # )
+    # # change the imagefield value to be the newley modifed image value
+    # self.image = InMemoryUploadedFile(
+    #     output,
+    #     "ImageField",
+    #     "%s.jpg" % self.image.name.split(".")[0],
+    #     "image/jpeg",
+    #     sys.getsizeof(output),
+    #     None,
+    # )
     #     short_sku = f"{self.name[:3]}{self.category[:3]}"
     #     self.sku = self.sku+short_sku
 
